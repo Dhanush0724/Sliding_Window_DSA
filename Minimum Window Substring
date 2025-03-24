@@ -1,0 +1,43 @@
+class Solution:
+    def minWindow(self, s: str, t: str) -> str:
+
+
+        t_hash = {}
+        window_hash = {}
+
+        for char in t:
+            t_hash[char] = t_hash.get(char,0)+1
+
+        left,right = 0,0
+        required = len(t_hash)
+        formed = 0
+        mini = float('inf')
+        min_win = ''
+
+        while right < len(s):
+            char = s[right]
+            window_hash[char] = window_hash.get(char,0)+1
+
+            if char in t_hash and window_hash[char] == t_hash[char]:
+                formed+=1
+            
+            while left<=right and formed == required:
+
+                if (right-left+1) < mini:
+                    mini = right-left+1
+                    min_win = s[left:right+1]
+
+                left_char = s[left]
+                window_hash[left_char]-=1
+
+                if left_char in t_hash and window_hash[left_char] < t_hash[left_char]:
+                    formed -= 1  
+
+                left += 1  
+
+            right += 1  
+
+        return min_win
+
+
+        
