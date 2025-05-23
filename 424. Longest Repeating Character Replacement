@@ -1,0 +1,22 @@
+class Solution:
+    def characterReplacement(self, s: str, k: int) -> int:
+        l = 0
+        r = 0
+        max_len  = 0
+        maxi_f = 0
+        hash_map = [0]*26
+
+        for r in range(len(s)):
+            hash_map[ord(s[r])-ord('A')]+=1
+            maxi_f = max(maxi_f,hash_map[ord(s[r])-ord('A')])
+
+            while (r-l+1) - maxi_f > k :
+                hash_map[ord(s[l])-ord('A')]-=1
+                l+=1
+            max_len = max(max_len,r-l+1)
+
+        return max_len
+
+
+
+        
