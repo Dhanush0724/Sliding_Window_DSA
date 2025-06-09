@@ -1,0 +1,28 @@
+def f(s, k):
+    left = 0
+    hash_map = {}
+    maxi = 0
+    for right in range(len(s)):
+        char = s[right]
+        hash_map[char] = hash_map.get(char, 0) + 1
+        while len(hash_map) > k:
+            left_char = s[left]
+            hash_map[left_char] -= 1
+            if hash_map[left_char] == 0:
+                del hash_map[left_char]
+            left += 1
+        maxi = max(maxi, right - left + 1)
+    return maxi
+
+# List of examples to test
+examples = [
+    ("eceba", 2),
+    ("aaabbcc", 2),
+    ("aabbcc", 1),
+    ("abcadcacacaca", 3),
+    ("", 2),
+    ("abcde", 5),
+]
+
+for s, k in examples:
+    print(f"Input: s = '{s}', k = {k} => Output: {f(s, k)}")
