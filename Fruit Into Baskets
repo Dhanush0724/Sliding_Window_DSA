@@ -1,0 +1,39 @@
+class Solution:
+    def totalFruit(self, fruits: List[int]) -> int:
+        
+        
+        # maxi = 0
+        # for i in range(len(fruits)):
+        #     first = None
+        #     second = None
+        #     cnt = 0
+        #     for j in range(i,len(fruits)):
+        #         if fruits[j] == first or fruits[j] == second or first is None or second is None:
+        #             if first is None:
+        #                 first = fruits[j]
+        #             elif second is None and fruits[j]!=first :
+        #                 second = fruits[j]
+        #             cnt+=1
+        #         else :
+        #             break
+        #     maxi = max(maxi,cnt)
+        # return maxi
+
+        start = 0
+        hash_map = {}
+        maxi = 0
+        for end in range(len(fruits)):
+            
+            hash_map[fruits[end]] = hash_map.get(fruits[end],0)+1
+            while len(hash_map) > 2:
+                hash_map[fruits[start]] -=1
+                if hash_map[fruits[start]] == 0:
+                    del hash_map[fruits[start]]
+                start+=1
+            maxi = max(maxi,end-start+1)
+        return maxi
+            
+
+
+            
+
